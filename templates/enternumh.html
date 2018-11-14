@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<body>
+	<center>
+
+<form>
+  <p>Enter number:<br></p>
+  <input type="text" name="enternum"><br>
+</form>
+
+<p></p>
+
+<form action="/action_page.php">
+  <p>Select attack:</p>
+  <select name="attack">
+    <option value="fgsm">FGSM</option>
+    <option value="cw">CW</option>
+  </select>
+
+  <p>Apply distillation?</p>
+  <select name="attack">
+    <option value="undistilled">Yes</option>
+    <option value="distilled">No</option>
+  </select>
+  <br><br>
+  <!-- <input type="submit" /> -->
+  <input type="reset" value="Generate MNIST data"> 
+
+</form>
+
+<p></p>
+
+<!--
+<img src="Screenshot 2018-11-12 at 16.46.03.png" width="500" height="333"/>
+-->
+
+<img src="/static/original.png" width="500" height="333"/>
+<img src="/static/adversarial.png" width="500" height="333"/>
+
+</center>
+</body>
+</html>

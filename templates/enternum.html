@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<body>
+
+<center>
+
+<p></p>
+
+<form action="/" method="POST" >
+  <p>Select attack:</p>
+  <select name="attack">
+    <option value="fgsm">FGSM</option>
+    <option value="cw">CW</option>
+  </select>
+
+  <p>Apply distillation?</p>
+  <select name="distillation">
+    <option value="distilled">Yes</option>
+    <option value="undistilled">No</option>
+  </select>
+  <br><br>
+
+  <button name="vizbtn" type="submit">Generate MNIST data</button>
+</form>
+
+<p></p>
+
+<img src="/static/original.png" width="500" height="333"/>
+<img src="/static/adversarial.png" width="500" height="333"/>
+
+</center>
+</body>
+</html>

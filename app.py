@@ -1,0 +1,181 @@
+from flask import Flask, render_template, request #, routes
+# from flask.ext.cache import Cache
+
+import os
+import numpy as np
+from PIL import Image
+import tensorflow
+import keras
+from keras.datasets import mnist
+from keras.models import model_from_json
+from keras import backend as K
+import random
+import matplotlib as mpl
+mpl.use('TkAgg')
+import matplotlib.pyplot as plt
+import pylab
+from diffimg import diff # to get the image difference
+
+# attack libraries
+import art
+from art.attacks import FastGradientMethod, CarliniL2Method
+from art.classifiers import KerasClassifier
+import foolbox
+from foolbox.criteria import Misclassification
+
+# cache = Cache(config={'CACHE_TYPE': 'null'})
+app = Flask(__name__)
+#  cache.init_app(app)
+
+### FLASK ###
+@app.route('/',methods=['POST', 'GET'])
+def home():  
+
+	# resp.headers["Pragma"] = "no-cache"
+	# app.config["CACHE_TYPE"] = "null"
+
+	###load parameters###
+	def hyper_params():
+		global img_rows, img_cols, channels, num_classes, params, batch_size
+		img_rows, img_cols = 28, 28 # image dimensions
+		channels=1 # channel for black and white
+		num_classes = 10 # 0 through 9 digits as class
+		params = [32, 32, 64, 64, 200, 200] # parameter for the CNN
+		batch_size = 128 # batch size
+	hyper_params()
+	print('parameters created')
+
+	###load MNIST data###
+	def load_data():
+
+	    global x_train, x_test, y_train, y_test # set as global variables
+	    # load and split data between test and train set
+	    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+	    # data transformation for model
+	    from keras import backend as K
+	    if K.image_data_format() == 'channels_first':
+	        x_train = x_train.reshape(x_train.shape[0], channels, img_rows, img_cols)
+	        x_test = x_test.reshape(x_test.shape[0], channels, img_rows, img_cols)
+	        input_shape = (channels, img_rows, img_cols)
+	    else:
+	        x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, channels)
+	        x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, channels)
+	        input_shape = (img_rows, img_cols, channels)
+
+	    x_train = x_train.astype('float32')
+	    x_test = x_test.astype('float32')
+	    x_train /= 255
+	    x_test /= 255
+
+	    # convert class vectors to binary class matrices
+	    y_train = keras.utils.to_categorical(y_train, num_classes)
+	    y_test = keras.utils.to_categorical(y_test, num_classes)
+	load_data() # execute load daya function
+	print('MNIST data loaded')
+
+	###load models###
+	def load_models():
+		global undistilled_model, distilled_model
+		# Model reconstruction from JSON file
+		with open('models/undistilled2architecture_CNN.json', 'r') as f:
+		    undistilled_model = model_from_json(f.read())
+
+		# Load weights into the new model
+		undistilled_model.load_weights('models/undistilled2weights_CNN.h5')
+
+		#%% load model - distilled
+
+		# Model reconstruction from JSON file # say how Keras load module could not be used directly
+		with open('models/distilled2architecture_CNN.json', 'r') as f:
+		    distilled_model = model_from_json(f.read())
+
+		# Load weights into the new model
+		distilled_model.load_weights('models/distilled2weights_CNN.h5')
+	load_models()
+	print('Models loaded')
+
+	attack_select = request.form.get("attack")
+	print('ATTACK?', attack_select)
+	if attack_select == 'fgsm':
+		attack_type_leg = 'FGSM'
+
+	elif attack_select == 'cw':
+		attack_type_leg = 'CW'
+	else:
+		attack_type_leg = 'CW'
+
+	distillation_select = request.form.get("distillation")
+	print('DISTILLATION?', distillation_select)
+	if distillation_select == 'undistilled':
+		model = undistilled_model
+		cnn_type_leg = 'Undistilled CNN Prediction'
+	elif distillation_select == 'distilled':
+		model = distilled_model
+		cnn_type_leg = 'Distilled CNN Prediction'
+	else:
+		model = undistilled_model
+		cnn_type_leg = 'Undistilled CNN Prediction'
+
+	randnum = random.randint(0,9999)
+	x = x_test[randnum]
+	y = y_test[randnum].argmax()
+
+	pred_x = np.reshape(x,[1,28,28,1])
+	prediction = int(model.predict_classes(pred_x))
+
+	plt.imshow(x.reshape((28,28)), cmap='Greys')
+	plt.tight_layout()
+	pylab.savefig('static/original_diff.png')
+
+	plt.title('Original Image', fontsize = 20)
+	plt.xlabel('True Class: {} \n {}: {}'.format(y,cnn_type_leg,prediction),fontsize=15) 
+	plt.imshow(x.reshape((28,28)), cmap='Greys')
+	plt.tight_layout()
+	pylab.savefig('static/original.png')
+
+	if attack_select == 'fgsm':
+		fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
+		attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
+		img_adv = attack(x,y)
+		# print('SHAPE', img_adv.shape)
+
+		# classifier = KerasClassifier(clip_values=(0, 255), model=model)
+		# adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
+		# img_adv = adv.generate(x.reshape(1,28,28,1))
+
+	elif  attack_select == 'cw':
+		classifier = KerasClassifier(clip_values=(0, 255), model=model)
+		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
+		img_adv = adv.generate(x.reshape(1,28,28,1))
+
+	else:
+		classifier = KerasClassifier(clip_values=(0, 255), model=model)
+		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
+		img_adv = adv.generate(x.reshape(1,28,28,1))
+
+	pred_advimg = np.reshape(img_adv,[1,28,28,1])
+	prediction_adv = int(model.predict_classes(pred_advimg))
+
+	plt.imshow(img_adv.reshape((28,28)), cmap='Greys')
+	plt.tight_layout()
+	pylab.savefig('static/adversarial_diff.png')
+
+	im_diff = round(diff('static/original_diff.png', 'static/adversarial_diff.png') * 100,2)
+
+	plt.title('{} Adversarial Image'.format(attack_type_leg), fontsize = 20)
+	plt.xlabel('Noise level: {}% \n {}: {}'.format(im_diff,cnn_type_leg,prediction_adv),fontsize=15)
+	plt.imshow(img_adv.reshape((28,28)), cmap='Greys')
+	plt.tight_layout()
+	pylab.savefig('static/adversarial.png')
+
+	K.clear_session()
+
+	return render_template('enternum.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
