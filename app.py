@@ -9,8 +9,11 @@ from keras.datasets import mnist
 from keras.models import model_from_json
 from keras import backend as K
 import random
+
+# for mac
 # import matplotlib as mpl
 # mpl.use('TkAgg')
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -129,14 +132,15 @@ def home():
 	pylab.savefig('static/original.png')
 
 	if attack_select == 'fgsm':
-		fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
-		attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
-		img_adv = attack(x,y)
-		# print('SHAPE', img_adv.shape)
-
-		# classifier = KerasClassifier(clip_values=(0, 255), model=model)
-		# adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
-		# img_adv = adv.generate(x.reshape(1,28,28,1))
+		try:
+			fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
+			attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
+			img_adv = attack(x,y)
+		except:
+			classifier = KerasClassifier(clip_values=(0, 255), model=model)
+			epsilon = 0.1
+			adv_crafter = FastGradientMethod(classifier)
+			img_adv = adv_crafter.generate(x=x, eps=epsilon)
 
 	elif  attack_select == 'cw':
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
@@ -144,8 +148,6 @@ def home():
 		img_adv = adv.generate(x.reshape(1,28,28,1))
 
 	else:
-
-
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
 		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
 		img_adv = adv.generate(x.reshape(1,28,28,1))
@@ -195,6 +197,7 @@ def dated_url_for(endpoint, **values):
     return url_for(endpoint, **values)
 
 if __name__ == '__main__':
+    # 
     app.run(host='seaford.nsqdc.city.ac.uk',debug=True)
 
 
