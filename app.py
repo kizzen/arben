@@ -111,8 +111,13 @@ def home():
 		model = distilled_model
 		cnn_type_leg = 'Distilled CNN Prediction'
 	else:
-		model = undistilled_model
-		cnn_type_leg = 'Undistilled CNN Prediction'
+		random_select_model = ['undistilled','distilled']
+		if random_select_model == 'undistilled':
+			model = undistilled_model
+			cnn_type_leg = 'Undistilled CNN Prediction'
+		elif random_select_model == 'distilled':
+			model = distilled_model
+			cnn_type_leg = 'Distilled CNN Prediction'
 
 	randnum = random.randint(0,9999)
 	x = x_test[randnum]
@@ -144,9 +149,17 @@ def home():
 		img_adv = adv.generate(x.reshape(1,28,28,1))
 
 	else:
-		classifier = KerasClassifier(clip_values=(0, 255), model=model)
-		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
-		img_adv = adv.generate(x.reshape(1,28,28,1))
+		random_selection = random.choice(['fgsm','cw'])
+		if random_selection == 'fgsm':
+			classifier = KerasClassifier(clip_values=(0, 255), model=model)
+			epsilon = 0.1
+			adv_crafter = FastGradientMethod(classifier)
+			x_art = np.reshape(x,[1,28,28,1])
+			img_adv = adv_crafter.generate(x=x_art, eps=epsilon)
+		elif random_selection == 'cw':
+			classifier = KerasClassifier(clip_values=(0, 255), model=model)
+			adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
+			img_adv = adv.generate(x.reshape(1,28,28,1))
 
 	pred_advimg = np.reshape(img_adv,[1,28,28,1])
 	prediction_adv = int(model.predict_classes(pred_advimg))
