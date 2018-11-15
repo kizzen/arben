@@ -135,7 +135,8 @@ def home():
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
 		epsilon = 0.1
 		adv_crafter = FastGradientMethod(classifier)
-		img_adv = adv_crafter.generate(x=x, eps=epsilon)
+		x_art = np.reshape(x,[1,28,28,1])
+		img_adv = adv_crafter.generate(x=x_art, eps=epsilon)
 
 	elif  attack_select == 'cw':
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
