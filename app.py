@@ -9,8 +9,8 @@ from keras.datasets import mnist
 from keras.models import model_from_json
 from keras import backend as K
 import random
-import matplotlib as mpl
-mpl.use('TkAgg')
+# import matplotlib as mpl
+# mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import pylab
 from diffimg import diff # to get the image difference
