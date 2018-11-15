@@ -133,10 +133,16 @@ def home():
 
 	if attack_select == 'fgsm':
 		try:
-			print('-'*50)
-			fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
-			attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
-			img_adv = attack(x,y)
+			# print('-'*50)
+			# fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
+			# attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
+			# img_adv = attack(x,y)
+			
+			print('*'*50)
+			classifier = KerasClassifier(clip_values=(0, 255), model=model)
+			epsilon = 0.1
+			adv_crafter = FastGradientMethod(classifier)
+			img_adv = adv_crafter.generate(x=x, eps=epsilon)	
 		except:
 			print('*'*50)
 			classifier = KerasClassifier(clip_values=(0, 255), model=model)
