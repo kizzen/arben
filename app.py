@@ -78,20 +78,20 @@ def home():
 	def load_models():
 		global undistilled_model, distilled_model
 		# Model reconstruction from JSON file
-		with open('models/undistilled2architecture_CNN.json', 'r') as f:
+		with open('static/undistilled2architecture_CNN.json', 'r') as f:
 		    undistilled_model = model_from_json(f.read())
 
 		# Load weights into the new model
-		undistilled_model.load_weights('models/undistilled2weights_CNN.h5')
+		undistilled_model.load_weights('static/undistilled2weights_CNN.h5')
 
 		#%% load model - distilled
 
 		# Model reconstruction from JSON file # say how Keras load module could not be used directly
-		with open('models/distilled2architecture_CNN.json', 'r') as f:
+		with open('static/distilled2architecture_CNN.json', 'r') as f:
 		    distilled_model = model_from_json(f.read())
 
 		# Load weights into the new model
-		distilled_model.load_weights('models/distilled2weights_CNN.h5')
+		distilled_model.load_weights('static/distilled2weights_CNN.h5')
 	load_models()
 	print('Models loaded')
 
@@ -201,8 +201,6 @@ def dated_url_for(endpoint, **values):
     return url_for(endpoint, **values)
 
 if __name__ == '__main__':
-    
-
     app.run(host='seaford.nsqdc.city.ac.uk',debug=True)
 
 
