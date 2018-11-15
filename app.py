@@ -133,6 +133,7 @@ def home():
 
 	if attack_select == 'fgsm':
 		try:
+			print('-'*50)
 			fmodel = foolbox.models.KerasModel(model, bounds=(0,1)) # foolbox model
 			attack=foolbox.attacks.FGSM(fmodel, criterion=Misclassification()) # attack
 			img_adv = attack(x,y)
