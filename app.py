@@ -11,6 +11,8 @@ from keras import backend as K
 import random
 # import matplotlib as mpl
 # mpl.use('TkAgg')
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pylab
 from diffimg import diff # to get the image difference
