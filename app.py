@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request #, routes
-# from flask.ext.cache import Cache
 
 import os
 import numpy as np
@@ -23,16 +22,11 @@ from art.classifiers import KerasClassifier
 import foolbox
 from foolbox.criteria import Misclassification
 
-# cache = Cache(config={'CACHE_TYPE': 'null'})
 app = Flask(__name__)
-#  cache.init_app(app)
 
 ### FLASK ###
 @app.route('/',methods=['POST', 'GET'])
 def home():  
-
-	# resp.headers["Pragma"] = "no-cache"
-	# app.config["CACHE_TYPE"] = "null"
 
 	###load parameters###
 	def hyper_params():
@@ -83,8 +77,6 @@ def home():
 
 		# Load weights into the new model
 		undistilled_model.load_weights('static/undistilled2weights_CNN.h5')
-
-		#%% load model - distilled
 
 		# Model reconstruction from JSON file # say how Keras load module could not be used directly
 		with open('static/distilled2architecture_CNN.json', 'r') as f:
