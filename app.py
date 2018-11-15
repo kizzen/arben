@@ -150,6 +150,8 @@ def home():
 		img_adv = adv.generate(x.reshape(1,28,28,1))
 
 	else:
+
+
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
 		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
 		img_adv = adv.generate(x.reshape(1,28,28,1))
@@ -173,7 +175,34 @@ def home():
 
 	return render_template('enternum.html')
 
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
+
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
+
 if __name__ == '__main__':
+    
+
     app.run(host='seaford.nsqdc.city.ac.uk',debug=True)
 
 
