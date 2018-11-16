@@ -113,6 +113,7 @@ def home():
 	elif distillation_select == 'distilled':
 		model = distilled_model
 		cnn_type_leg = 'Distilled CNN Prediction'
+	# else statement for when app first open and no selection made (random selection)
 	else:
 		distillation_select = random.choice(['undistilled','distilled'])
 		if distillation_select == 'undistilled':
@@ -122,26 +123,30 @@ def home():
 			model = distilled_model
 			cnn_type_leg = 'Distilled CNN Prediction'
 
+	# random generator to randomly select image
 	randnum = random.randint(0,9999)
 	x = x_test[randnum]
 	y = y_test[randnum].argmax()
 
-	pred_x = np.reshape(x,[1,28,28,1])
-	prediction = int(model.predict_classes(pred_x))
+	pred_x = np.reshape(x,[1,28,28,1]) # image reshape for prediction
+	prediction = int(model.predict_classes(pred_x)) # prediction 
 
+	# plot and save image to calculate noise
 	plt.imshow(x.reshape((28,28)), cmap='Greys')
 	plt.tight_layout()
 	pylab.savefig('static/original_diff.png')
 
+	# plot and save image to be displayed on the screen
 	plt.title('Original Image', fontsize = 20)
 	plt.xlabel('True Class: {} \n {}: {}'.format(y,cnn_type_leg,prediction),fontsize=15) 
 	plt.imshow(x.reshape((28,28)), cmap='Greys')
 	plt.tight_layout()
 	pylab.savefig('static/original.png')
 
+
 	if attack_select == 'fgsm':
 		classifier = KerasClassifier(clip_values=(0, 255), model=model)
-		epsilon = 0.1
+		epsilon = 0.2
 		adv_crafter = FastGradientMethod(classifier)
 		x_art = np.reshape(x,[1,28,28,1])
 		img_adv = adv_crafter.generate(x=x_art, eps=epsilon)
@@ -151,15 +156,18 @@ def home():
 		adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
 		img_adv = adv.generate(x.reshape(1,28,28,1))
 
-	pred_advimg = np.reshape(img_adv,[1,28,28,1])
+	pred_advimg = np.reshape(img_adv,[1,28,28,1]) # reshape of adversarial image
 	prediction_adv = int(model.predict_classes(pred_advimg))
 
+	# plot and save adv image to calculate noise
 	plt.imshow(img_adv.reshape((28,28)), cmap='Greys')
 	plt.tight_layout()
 	pylab.savefig('static/adversarial_diff.png')
 
+	# calculate noise level
 	im_diff = round(diff('static/original_diff.png', 'static/adversarial_diff.png') * 100,2)
 
+	# plot and save image to be displayed on the screen
 	plt.title('{} Adversarial Image'.format(attack_type_leg), fontsize = 20)
 	plt.xlabel('Noise level: {}% \n {}: {}'.format(im_diff,cnn_type_leg,prediction_adv),fontsize=15)
 	plt.imshow(img_adv.reshape((28,28)), cmap='Greys')
