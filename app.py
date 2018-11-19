@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request #, routes
-
 import os
 import numpy as np
 from PIL import Image
@@ -9,17 +8,11 @@ from keras.datasets import mnist
 from keras.models import model_from_json
 from keras import backend as K
 import random
-
-# for mac
-# import matplotlib as mpl
-# mpl.use('TkAgg')
-
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pylab
 from diffimg import diff # to get the image difference
-
 # attack libraries
 import art
 from art.attacks import FastGradientMethod, CarliniL2Method
@@ -204,8 +197,12 @@ def dated_url_for(endpoint, **values):
     return url_for(endpoint, **values)
 
 if __name__ == '__main__':
-    # app.run(debug=True)
-    app.run(host='seaford.nsqdc.city.ac.uk',debug=True)
+	local_fpath = '/Users/khalilezzine/Desktop/DS/flasky/arben'
+	cwd = os.getcwd()
+	if cwd == local_fpath:
+		app.run(debug=True)
+	else:
+		app.run(host='seaford.nsqdc.city.ac.uk', debug=True)
 
 
 
