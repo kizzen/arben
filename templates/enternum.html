@@ -39,38 +39,57 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   </div>
-    </div>
+    
 
 <div id = "everything else">
 <center>
 
 <p> <br></p>
-<p> <br></p>
-<p> <br></p>
 
-<form action="/" method="POST" >
-  <p>Select attack:</p>
-  <select name="attack">
+</form>
+</center>
+</div>
+<div id = "everything else">
+<center>
+<p> <br></p>
+<p> <br></p>
+<p> <br></p>
+<form class="form-inline" action="/" method="POST" >
+  <label for="dataset">Select dataset:</label>
+  <select name="data">
+    <option value="null"> </option>
+    <option value="MNIST">FGSM</option>
+    <option value="CIFAR">CW</option>
+  </select>&nbsp &nbsp &nbsp
+
+  <label for="attack">Select attack:</label>
+  <select name="attack" >
     <option value="null"> </option>
     <option value="fgsm">FGSM</option>
     <option value="cw">CW</option>
-  </select>
+  </select> &nbsp &nbsp &nbsp
 
-  <p>Apply distillation?</p>
-  <select name="distillation">
+  <label for="distillation">Apply distillation?:</label>
+  <select name="distillation" >
     <option value="null"> </option>
     <option value="distilled">Yes</option>
     <option value="undistilled">No</option>
   </select>
-  <br><br>
 
+<div>
+  <br><br>
   <button name="vizbtn" type="submit">Generate MNIST data</button>
+</div>
+
 </form>
 
 <p></p>
+</center>
 
+<div><center>
 <img src="/static/original.png" width="500" height="333"/>
 <img src="/static/adversarial.png" width="500" height="333"/>
+</center></div>
 
 </div>
 
