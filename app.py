@@ -202,12 +202,12 @@ def home():
 
 		    global x_train, x_test, y_train, y_test, min_, max_ # set as global variables
 		    # # load and split data between test and train set
-		    # (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+		    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 		    # (x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('cifar10'))
 
 
 
-		    (x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('cifar10'))
+		    # (x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('cifar10'))
 		    x_train, y_train = x_train[:5000], y_train[:5000]
 		    x_test, y_test = x_test[:500], y_test[:500]
 		    im_shape = x_train[0].shape
@@ -336,14 +336,16 @@ def home():
 		
 		print('attack_select: ', attack_select)
 		if attack_select == 'fgsm':
-			classifier = KerasClassifier(clip_values=(min_, max_), model=model)
+			# classifier = KerasClassifier(clip_values=(min_, max_), model=model)
+			classifier = KerasClassifier((0.0, 1.0), model=undistilled_model)
 			epsilon = 0.2
 			adv_crafter = FastGradientMethod(classifier)
 			x_art = np.reshape(x,[1,32,32,3])
 			img_adv = adv_crafter.generate(x=x_art, eps=epsilon)
 		
 		elif  attack_select == 'cw':
-			classifier = KerasClassifier(clip_values=(min_, max_), model=model)
+			# classifier = KerasClassifier(clip_values=(min_, max_), model=model)
+			classifier = KerasClassifier(clip_values=(0.0, 1.0), model=model)
 			adv = CarliniL2Method(classifier, targeted=False, max_iter=100, binary_search_steps=2, learning_rate=1e-2, initial_const=1)
 			img_adv = adv.generate(x.reshape(1,32,32,3))
 
