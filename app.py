@@ -208,30 +208,30 @@ def home():
 
 
 		    # (x_train, y_train), (x_test, y_test), min_, max_ = load_dataset(str('cifar10'))
-		    x_train, y_train = x_train[:5000], y_train[:5000]
-		    x_test, y_test = x_test[:500], y_test[:500]
-		    im_shape = x_train[0].shape
+		    # x_train, y_train = x_train[:5000], y_train[:5000]
+		    # x_test, y_test = x_test[:500], y_test[:500]
+		    # im_shape = x_train[0].shape
 
 			
-		    # # data transformation for model
-		    # from keras import backend as K
-		    # if K.image_data_format() == 'channels_first':
-		    #     x_train = x_train.reshape(x_train.shape[0], channels, img_rows, img_cols)
-		    #     x_test = x_test.reshape(x_test.shape[0], channels, img_rows, img_cols)
-		    #     input_shape = (channels, img_rows, img_cols)
-		    # else:
-		    #     x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, channels)
-		    #     x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, channels)
-		    #     input_shape = (img_rows, img_cols, channels)
+		    # data transformation for model
+		    from keras import backend as K
+		    if K.image_data_format() == 'channels_first':
+		        x_train = x_train.reshape(x_train.shape[0], channels, img_rows, img_cols)
+		        x_test = x_test.reshape(x_test.shape[0], channels, img_rows, img_cols)
+		        input_shape = (channels, img_rows, img_cols)
+		    else:
+		        x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, channels)
+		        x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, channels)
+		        input_shape = (img_rows, img_cols, channels)
 
-		    # x_train = x_train.astype('float32')
-		    # x_test = x_test.astype('float32')
-		    # x_train /= 255
-		    # x_test /= 255
+		    x_train = x_train.astype('float32')
+		    x_test = x_test.astype('float32')
+		    x_train /= 255
+		    x_test /= 255
 
-		    # # convert class vectors to binary class matrices
-		    # y_train = keras.utils.to_categorical(y_train, num_classes)
-		    # y_test = keras.utils.to_categorical(y_test, num_classes)
+		    # convert class vectors to binary class matrices
+		    y_train = keras.utils.to_categorical(y_train, num_classes)
+		    y_test = keras.utils.to_categorical(y_test, num_classes)
 			
 
 		load_data() # execute load data function
