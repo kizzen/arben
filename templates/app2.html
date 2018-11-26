@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+h2{
+  margin-bottom: 5px;
+}
+p{
+  margin-top: 0px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<center>
+  <h2>A R B E N</h2>
+  
+  <p>The Adversarial Robustness Benchmarking Tool</p>
+ </center>
+</div>
+
+<ul>
+  <li><a href="#home">Home</a></li>
+  
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Datasets</a>
+    <div class="dropdown-content">
+      <a href="#">MNIST</a>
+      <a href="#">CIFAR</a>
+      <a href="#">ImageNet</a>
+      <a href="#">Audio Samples</a>
+    </div>
+  </li>
+  <li><a href="#news">Leaderboard</a></li>
+  <li><a href="#news">Contact Us</a></li>
+</ul>
+
+</form>
+</center>
+</div>
+<div id = "everything else">
+<center>
+<br><br>
+
+<form class="form-inline" action="/" method="POST" >
+  
+  <label for="dataset">Select dataset:</label>
+  <select name="dataset">
+    <option value="null"> </option>
+    <option value="MNIST">MNIST</option>
+    <option value="CIFAR">CIFAR</option>
+  </select>&nbsp &nbsp &nbsp
+
+  <label for="attack">Select attack:</label>
+  <select name="attack" >
+    <option value="null"> </option>
+    <option value="fgsm">FGSM</option>
+    <option value="cw">CW</option>
+  </select> &nbsp &nbsp &nbsp
+
+  <label for="distillation">Apply distillation?:</label>
+  <select name="distillation" >
+    <option value="null"> </option>
+    <option value="distilled">Yes</option>
+    <option value="undistilled">No</option>
+  </select>
+
+<div>
+  <br><br>
+  <button name="vizbtn" type="submit">Visualise data!</button>
+</div>
+
+</form>
+
+<p></p>
+</center>
+
+<div><center>
+<img src="/static/original.png" width="500" height="333"/>
+<img src="/static/adversarial.png" width="500" height="333"/>
+</center></div>
+
+</div>
+
+<hr size='1' color="#00000">
+
+<div style="margin-right: 60px">
+<p  style="margin-left: 40px">
+  <b>Understanding adversarial examples through visualisation.</b> </p>
+<p style="margin-left: 40px">
+State-of-art classifiers, such as neural networks, can be easily fooled by adversarial examples, i.e. handcrafted inputs that have been carefully computed to be misclassified. In 2014, Szegedy stumbled upon this finding by accident, when he tried to understand the underlying process behind the classification decisions of a convolutional neural network (CNN). His experiment consisted of making a visualization that gradually transformed one image into another. He wanted to identify which features of the target image would start to appear on the original one, causing the CNN to change its prediction. What he discovered was remarkable: the modifications were barely noticeable to the human eye. Szegedy et al. published his findings in the following seminal paper: <a href="https://arxiv.org/abs/1312.6199">Intriguing properties of neural networks</a>. </p>  
+<p style="margin-left: 40px">
+The advent of adversarial machine learning has exposed fundamental differences between artificial and biological neural networks. By learning very different features during the training phase, neural networks ultimately fail at accurately emulating human intelligence. What's more, attackers can exploit this phenomenon, called the adversarial networks problem, in order to severely undermine the security of machine learning applications. For example, self-driving cars can be crashed, biometric authentication systems can be manipulated to allow improper access, and illegal content can bypass safety filters. As a result, many academics and authors proposed defenses claiming to make these networks more robust against adversarial attacks. However, these defensive algorithms were subsequently broken very quickly by much stronger attacks. 
+</p>
+<p style="margin-left: 40px">
+ARBEN is an interactive tool that helps researchers and machine learning enthusiasts understand adversarial examples from a visual perspective. By choosing different attacks and defense methods, users can see the adversarial example (perturbed image on the right) and compare its classification against the legitimate sample (left). In the case of a CNN trained on MNIST, and a defensive technique called <a href="https://arxiv.org/abs/1511.04508">defensive distillation</a>, the classification accuracy results are summarized in the table below. 
+</p>
+</div>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#999;color:#444;background-color:#F7FDFA;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-zv36{font-weight:bold;background-color:#ffffff;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-is6o{font-weight:bold;background-color:#203a5e;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-3xi5{background-color:#ffffff;border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 298px"; border="1"; align="center">
+<colgroup>
+<col style="width: 120px">
+<col style="width: 89px">
+<col style="width: 89px">
+</colgroup>
+  <tr>
+    <th class="tg-is6o">Samples\Models</th>
+    <th class="tg-is6o">Undistilled</th>
+    <th class="tg-is6o">Distilled<br></th>
+  </tr>
+  <tr>
+    <td class="tg-zv36">Legitimate</td>
+    <td class="tg-3xi5">99.06%</td>
+    <td class="tg-3xi5">97.55%</td>
+  </tr>
+  <tr>
+    <td class="tg-zv36">FGSM</td>
+    <td class="tg-3xi5">31.64%</td>
+    <td class="tg-3xi5">71.11%</td>
+  </tr>
+  <tr>
+    <td class="tg-zv36">CW</td>
+    <td class="tg-3xi5">1.24%</td>
+    <td class="tg-3xi5">2.21%</td>
+  </tr>
+</table>
+
+</center>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+</html>
