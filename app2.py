@@ -27,8 +27,9 @@ app = Flask(__name__)
 
 ### FLASK ###
 @app.route('/',methods=['POST', 'GET'])
-def home():  
-
+@app.route('/MNIST',methods=['POST', 'GET'])
+@app.route('/CIFAR',methods=['POST', 'GET'])
+def datasets():  
 	dataset_select = request.form.get("dataset")
 	# dataset_select = random.choice(['MNIST',''])
 	# dataset_select == 'MNIST'
@@ -371,6 +372,16 @@ def home():
 		K.clear_session()
 			
 	return render_template('app2.html')
+
+
+@app.route('/Home',methods=['POST', 'GET'])
+@app.route('/Leaderboard',methods=['POST', 'GET'])
+def home():
+	return render_template('home.html')
+
+@app.route('/Contact',methods=['POST', 'GET'])
+def contact():
+	return render_template('contact.html')
 
 @app.after_request
 def add_header(r):

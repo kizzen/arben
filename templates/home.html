@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+h2{
+  margin-bottom: 5px;
+}
+p{
+  margin-top: 0px;
+}
+
+.try{
+  background-color: #383838;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    /*overflow: hidden;*/
+}
+
+.dropdown .dropbtn {
+    
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
+}
+
+.dropdown-content {
+    
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar .home{
+  background-color: #575757; 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 98.5%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header" style="margin-right: 60px">
+<center>
+  <h2>A R B E N</h2>
+  
+  <p>The Adversarial Robustness Benchmarking Tool</p>
+ </center>
+</div>
+
+<div class="try" id="menu">
+
+<div class="navbar" id="navbar" >
+  <a class="home" href="Home"><b>Home</b></a>
+  <div class="dropdown">
+    <button class="dropbtn"><b>Datasets &darr;</b>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="MNIST">MNIST</a>
+      <a href="CIFAR">CIFAR</a>
+      <a href="ImageNet">ImageNet</a>
+      <a href="Audio_Samples">Audio Samples</a>
+    </div>
+  </div> 
+  <a href="Leaderboard"><b>Leaderboard</b></a>
+  <a href="Contact"><b>Contact</b></a>
+</div>
+
+</div>
+
+  <div style="margin-right: 60px">
+  <br>
+  <h2><center><p>Making machine learning models more <br> robust against adversarial attacks.</p></center></h2>
+<p style="margin-left: 40px">
+State-of-art classifiers, such as neural networks, can be easily fooled by adversarial examples, i.e. handcrafted inputs that have been carefully computed to be misclassified. In 2014, Szegedy stumbled upon this finding by accident, when he tried to understand the underlying process behind the classification decisions of a convolutional neural network (CNN). His experiment consisted of making a visualization that gradually transformed one image into another. He wanted to identify which features of the target image would start to appear on the original one, causing the CNN to change its prediction. What he discovered was remarkable: the modifications were barely noticeable to the human eye. Szegedy et al. published his findings in the following seminal paper: <a href="https://arxiv.org/abs/1312.6199">Intriguing properties of neural networks</a>. </p> <br> </div>
+
+<div><center>
+<img src="/static/panda.png" width="500" height="200"/>
+</center></div>
+<br>
+
+<div style="text-align: center;">
+  <div style="display: inline-block; text-align: left;">
+<i>
+By applying an infinitesimal amount of noise to the input of a deep learning model,<br> the image on the right, which was correctly classified as a panda, is now classified <br> as a gibbon with a much higher confidence. <a href="https://arxiv.org/abs/1412.6572">Image Source</a>
+</i>
+</div></div><br>
+
+<hr>
+
+<h2><center><p>There are fundamental differences between <br> biological and artifical neural networks.</p></center></h2>
+
+<div style="margin-right: 60px">
+<p style="margin-left: 40px">
+The advent of adversarial machine learning has exposed fundamental differences between artificial and biological neural networks. By learning very different features during the training phase, neural networks ultimately fail at accurately emulating human intelligence. What's more, attackers can exploit this phenomenon, called the adversarial networks problem, in order to severely undermine the security of machine learning applications. For example, self-driving cars can be crashed, biometric authentication systems can be manipulated to allow improper access, and illegal content can bypass safety filters. As a result, many academics and authors proposed defenses claiming to make these networks more robust against adversarial attacks. However, these defensive algorithms were subsequently broken very quickly by much stronger attacks. 
+</p>
+</div>
+
+<div style="margin-right: 60px"><center>
+<br><img src="/static/human_adv.jpeg" width="250" height="150"/>
+</center></div>
+<br>
+
+<div style="text-align: center;">
+  <div style="display: inline-block; text-align: left;"> 
+<i>
+Adversarial examples also exist in the "real world," i.e., they can be developed to trick <br>humans as well as neural networks. For example, consider the images above created by <br>Google. Is the image on the right a dog, or is it more similar to the cat on the left? <br> <a href="https://arxiv.org/abs/1802.08195">Image Source</a>
+</i>
+</div></div><br>
+
+<hr>
+
+<h2><center><p>An interactive tool for exploring and <br> benchmarking adversarial examples.</p></center></h2>
+
+<div style="margin-right: 60px">
+<p style="margin-left: 40px">
+ARBEN is an interactive tool that helps researchers and machine learning enthusiasts better understand to what extent adversarial examples can fool deep neural networks. By choosing high-accuracy models and testing them against adversarial examples, ARBEN allows users to benchmark and evaluate the robustness of these models against different attacks. To use the tool, navigate to the "Datasets" menu option (top left) and choose one of the preloaded datasets. For more information on ARBEN, or if you want to submit a request to include your own models/adversarial examples, go to the Contact page. 
+</p>
+</div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("menu");
+
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+</script>
+
+</body>
+</html>

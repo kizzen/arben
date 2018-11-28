@@ -10,32 +10,38 @@ p{
   margin-top: 0px;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #383838;
 }
 
-li {
+.navbar a {
     float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
+    font-size: 16px;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+.dropdown {
+    float: left;
+    overflow: hidden;
 }
 
-li.dropdown {
-    display: inline-block;
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
 }
 
 .dropdown-content {
@@ -48,6 +54,7 @@ li.dropdown {
 }
 
 .dropdown-content a {
+    float: none;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -55,16 +62,39 @@ li.dropdown {
     text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.navbar .home{
+  background-color: #575757; 
+}
+
+.navbar .dropbtn{
+  background-color: #575757; 
+}
+
+.navbar .mnist{
+  background-color: #ddd; 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 </style>
+
 </head>
+
 <body>
 
-<div class="header">
+<div class="header" style="margin-right: 60px">
 <center>
   <h2>A R B E N</h2>
   
@@ -72,25 +102,24 @@ li.dropdown {
  </center>
 </div>
 
-<ul>
-  <li><a href="#home">Home</a></li>
-  
-  <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">Datasets</a>
+<div class="navbar" id="navbar">
+  <a href="Home"><b>Home</b></a>
+  <div class="dropdown">
+    <button class="dropbtn"><b>Datasets &darr;</b>
+      <i class="fa fa-caret-down"></i>
+    </button>
     <div class="dropdown-content">
-      <a href="#">MNIST</a>
-      <a href="#">CIFAR</a>
-      <a href="#">ImageNet</a>
-      <a href="#">Audio Samples</a>
+      <a href="MNIST" class="mnist">MNIST</a>
+      <a href="CIFAR" class="cifar">CIFAR</a>
+      <a href="ImageNet" class="inet">ImageNet</a>
+      <a href="Audio_Samples" class="audio">Audio Samples</a>
     </div>
-  </li>
-  <li><a href="#news">Leaderboard</a></li>
-  <li><a href="#news">Contact Us</a></li>
-</ul>
-
-</form>
-</center>
+  </div> 
+  <a href="#Leaderboard"><b>Leaderboard</b></a>
+  <a href="Contact"><b>Contact</b></a>
 </div>
+
+
 <div id = "everything else">
 <center>
 <br><br>
@@ -120,7 +149,7 @@ li.dropdown {
 
 <div>
   <br><br>
-  <button name="vizbtn" type="submit">Visualise data!</button>
+  <button name="vizbtn" type="submit">Attack!</button>
 </div>
 
 </form>
@@ -192,6 +221,20 @@ ARBEN is an interactive tool that helps researchers and machine learning enthusi
 <p></p>
 <p></p>
 <p></p>
+<script>
+window.onscroll = function() {myFunction()};
 
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+</body>
 
 </html>

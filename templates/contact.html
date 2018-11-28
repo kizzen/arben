@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style>
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+
+<style>
+
+li {
+  margin-left: 50px;
+}
+
+h2{
+  margin-bottom: 5px;
+}
+p{
+  margin-top: 0px;
+}
+
+.try{
+  background-color: #383838;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    /*overflow: hidden;*/
+}
+
+.dropdown .dropbtn {
+    
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
+}
+
+.dropdown-content {
+    
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar .Contact{
+  background-color: #575757; 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 98.5%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header" style="margin-right: 60px">
+<center>
+  <h2>A R B E N</h2>
+  
+  <p>The Adversarial Robustness Benchmarking Tool</p>
+ </center>
+</div>
+
+<div class="try" id="menu">
+
+<div class="navbar" id="navbar" >
+  <a class="home" href="Home"><b>Home</b></a>
+  <div class="dropdown">
+    <button class="dropbtn"><b>Datasets &darr;</b>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="MNIST">MNIST</a>
+      <a href="CIFAR">CIFAR</a>
+      <a href="ImageNet">ImageNet</a>
+      <a href="Audio_Samples">Audio Samples</a>
+    </div>
+  </div> 
+  <a href="Leaderboard"><b>Leaderboard</b></a>
+  <a href="Contact" class="Contact"><b>Contact</b></a>
+</div>
+</div>
+
+
+
+
+<div style="text-align: center;">
+  <div style="display: inline-block; text-align: left;">
+<i>
+
+</i>
+
+<h4>Contact Us Here</h4>
+<p>If you wish to contribute to ARBEN, or have any questions, fill out the form below and we will get back to you shortly.<br> You can submit a request to: </p>
+<li>Upload your own models to test their robustness (and score high in the leaderboard!)</li>
+<li>Submit additonal datasets and/or adversarial examples</li>
+<li>Help build the website and expand the functionality of the ARBEN tool</li>
+<li>Any general questions you may have</li>
+<br>
+
+<div class="container">
+  <form action="/action_page.php">
+    <label for="fname">Full Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="email">Email</label>
+    <input type="text" id="email" name="emailadd" placeholder="Your email address..">
+
+    <label for="message">Message</label>
+    <textarea id="msg" name="msg" placeholder="Write something.." style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("menu");
+
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+</script>
+
+</body>
+</html>
