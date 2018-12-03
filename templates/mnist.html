@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+h2{
+  margin-bottom: 5px;
+}
+p{
+  margin-top: 0px;
+}
+
+li {
+  margin-left: 100px;
+  text-indent: -1.5em
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar .home{
+  background-color: #575757; 
+}
+
+.navbar .dropbtn{
+  background-color: #575757; 
+}
+
+.navbar .mnist{
+  background-color: #ddd; 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header" style="margin-right: 60px">
+<center>
+  <h2>A R B E N</h2>
+  
+  <p>The Adversarial Robustness Benchmarking Tool</p>
+ </center>
+</div>
+
+<div class="try" id="menu">
+<div class="navbar" id="navbar">
+  <a href="Home"><b>Home</b></a>
+  <div class="dropdown">
+    <button class="dropbtn"><b>Datasets &darr;</b>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="MNIST" class="mnist">MNIST</a>
+      <a href="CIFAR" class="cifar">CIFAR</a>
+      <a href="ImageNet" class="inet">ImageNet</a>
+      <a href="Audio_Samples" class="audio">Audio Samples</a>
+    </div>
+  </div> 
+  <a href="Leaderboard"><b>Leaderboard</b></a>
+  <a href="Contact"><b>Contact</b></a>
+</div></div>
+
+<div id = "everything else">
+<center>
+<br><br>
+
+<form class="form-inline" action="/MNIST" method="POST" >
+
+   <label for="model">Select Model:</label>
+  <select name="model" style="width: 60px">
+    <option value="null"> </option>
+    <option value="Undistilled CNN">Undistilled CNN</option>
+    <option value="Distilled CNN">Distilled CNN</option>
+  </select>
+
+  <label for="attack">&nbsp; Select attack:</label>
+  <select name="attack" style="width: 60px">
+    <option value="null"> </option>
+    <option value="fgsm">FGSM</option>
+    <option value="cw">CW</option>
+  </select> &nbsp &nbsp &nbsp
+
+<div>
+  <br><br>
+  <button name="vizbtn" type="submit">Attack!</button>
+</div>
+
+</form>
+
+<p></p>
+</center>
+
+<div><center>
+<img src="/static/original.png" width="500" height="333"/>
+<img src="/static/adversarial.png" width="500" height="333"/>
+</center></div>
+</div>
+
+<br>
+<hr size='1' color="#00000">
+<br>
+
+<div style="margin-right: 60px">
+<p  style="margin-left: 40px">
+<b>The MNIST dataset.</b></p> 
+<p  style="margin-left: 40px">
+The MNIST dataset was developed by Yann LeCun in 1998. It consists of handwritten digits, 0-9, represented as 28 by 28 black and white pixel images. This database contains 60,000 examples in the training set, and 10,000 in the test set. More information on MNIST can be found can be found <a href="http://yann.lecun.com/exdb/mnist/">here</a>.<br><br>
+</p>
+
+<p  style="margin-left: 40px">
+  <b>Understanding adversarial examples through visualisation.</b></p> 
+
+<p  style="margin-left: 40px">
+To use the ARBEN tool, start by selecting a model and the attack algorithm. Then click the "Attack!"" button to visualize the adversarial example.
+<li> The image on the left is a legitimate sample (i.e., not adversarial) that is randomly selected from the dataset. The true classification, i.e. the label of the image, is provided, as well as the prediction of the chosen model.</li>
+<li> The image on the right is the computed adversarial example, using the specified attack. The noise level, or perturbation amount, that is required to produce the attack is calculated as a percentage. The selected model's prediction on this attack is also provided. If the attack is successful then the model predicts a wrong classification.</li>
+<li> If any of the fields are left blank, then their values are selected using a random generator. </li>
+</p></div>
+<br>
+</div></div>
+
+<p></p>
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("menu");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+</body>
+
+</html>

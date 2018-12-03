@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <style>
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+</style>
+
+<style>
+
+li {
+  margin-left: 50px;
+}
+
+h2{
+  margin-bottom: 5px;
+}
+p{
+  margin-top: 0px;
+}
+
+.try{
+  background-color: #383838;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #383838;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    /*overflow: hidden;*/
+}
+
+.dropdown .dropbtn {
+    
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
+}
+
+.dropdown-content {
+    
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.navbar .Leaderboard{
+  background-color: #575757; 
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 98.5%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header" style="margin-right: 60px">
+<center>
+  <h2>A R B E N</h2>
+  
+  <p>The Adversarial Robustness Benchmarking Tool</p>
+ </center>
+</div>
+
+<div class="try" id="menu">
+
+<div class="navbar" id="navbar" >
+  <a class="home" href="Home"><b>Home</b></a>
+  <div class="dropdown">
+    <button class="dropbtn"><b>Datasets &darr;</b>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="MNIST">MNIST</a>
+      <a href="CIFAR">CIFAR</a>
+      <a href="ImageNet">ImageNet</a>
+      <a href="Audio_Samples">Audio Samples</a>
+    </div>
+  </div> 
+  <a href="Leaderboard" class="Leaderboard"><b>Leaderboard</b></a>
+  <a href="Contact" class="Contact"><b>Contact</b></a>
+</div>
+</div>
+
+<div><p style="margin-left: 40px"><br><br>
+  <font size="+1">
+  This leaderboard evaluates, for each of the datasets, the strongest attacks against different machine learning models.
+  </font>
+  <br><br>
+
+  <h2 style="margin-left: 40px"><u>MNIST</u></h2>
+  
+  </p></div>
+
+
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:black;}
+.tg .tg-4vx0{font-weight:bold;background-color:#203a5e;color:#ffffff;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-5986{background-color:#ffffff;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-v8f3{background-color:#efefef;color:#000000;text-align:center;vertical-align:top}
+.tg .tg-quxf{background-color:#ffffff;text-align:center;vertical-align:top}
+.tg .tg-emob{font-weight:bold;background-color:#203a5e;color:#ffffff;text-align:center;vertical-align:top}
+.tg .tg-rr9t{font-weight:bold;background-color:#efefef;border-color:#333333;text-align:center;vertical-align:top}
+.tg .tg-7g6k{font-weight:bold;background-color:#ffffff;border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-i81m{background-color:#ffffff;text-align:center;vertical-align:top}
+.tg .tg-o8le{background-color:#efefef;border-color:#333333;text-align:center;vertical-align:top}
+</style>
+
+
+
+<div style="margin-left: 40px">
+<table class="tg" style="undefined;table-layout: fixed; width: 850px">
+<colgroup>
+<col style="width: 87px">
+<col style="width: 150px">
+<col style="width: 123px">
+<col style="width: 123px">
+<col style="width: 123px">
+<col style="width: 122px">
+<col style="width: 122px">
+</colgroup>
+  <tr>
+    <th class="tg-4vx0">Rank</th>
+    <th class="tg-4vx0">Attack</th>
+    <th class="tg-emob">Undistilled CNN</th>
+    <th class="tg-4vx0">Distilled CNN<br></th>
+    <th class="tg-emob">Model  3</th>
+    <th class="tg-emob">Model 4</th>
+    <th class="tg-rr9t">Humans</th>
+  </tr>
+  <tr>
+    <td class="tg-7g6k">1</td>
+    <td class="tg-5986">Carlini &amp; Wagner (CW)</td>
+    <td class="tg-i81m">1.24%</td>
+    <td class="tg-5986">2.21%</td>
+    <td class="tg-i81m">TBD</td>
+    <td class="tg-quxf">TBD<br></td>
+    <td class="tg-o8le">100%</td>
+  </tr>
+  <tr>
+    <td class="tg-7g6k">2</td>
+    <td class="tg-5986">Fast Gradient Sign Method (FGSM)</td>
+    <td class="tg-i81m">31.64%</td>
+    <td class="tg-5986">71.11%</td>
+    <td class="tg-i81m">TBD</td>
+    <td class="tg-quxf">TBD<br></td>
+    <td class="tg-o8le">100%</td>
+  </tr>
+  <tr>
+    <td class="tg-7g6k">3</td>
+    <td class="tg-5986">TBD</td>
+    <td class="tg-i81m">TBD</td>
+    <td class="tg-5986">TBD</td>
+    <td class="tg-i81m">TBD</td>
+    <td class="tg-quxf">TBD</td>
+    <td class="tg-o8le">TBD</td>
+  </tr>
+  <tr>
+    <td class="tg-v8f3" colspan="2">Legitimate Samples</td>
+    <td class="tg-i81m">99.06%</td>
+    <td class="tg-quxf">97.55%</td>
+    <td class="tg-i81m">TBD</td>
+    <td class="tg-quxf">TBD</td>
+    <td class="tg-o8le">100%</td>
+  </tr>
+</table>
+</div>
+
+<div><p style="margin-left: 40px"><br>
+
+  <h2 style="margin-left: 40px"><u>CIFAR</u></h2>
+  <p style="margin-left: 40px"><br>
+  <font size="+1">
+  TBD
+  </font></p>
+  
+  </p></div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("menu");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
+</body>
+</html>

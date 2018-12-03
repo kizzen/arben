@@ -38,7 +38,6 @@ input[type=submit]:hover {
 
 li {
   margin-left: 50px;
-  text-indent: -1.5em
 }
 
 h2{
@@ -115,8 +114,12 @@ p{
     display: block;
 }
 
-.navbar .Contact{
+.navbar .dropbtn{
   background-color: #575757; 
+}
+
+.navbar .inet{
+  background-color: #ddd; 
 }
 
 .sticky {
@@ -148,66 +151,24 @@ p{
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="MNIST">MNIST</a>
-      <a href="CIFAR">CIFAR</a>
-      <a href="ImageNet">ImageNet</a>
-      <a href="Audio_Samples">Audio Samples</a>
+      <a href="MNIST" class="mnist">MNIST</a>
+      <a href="CIFAR" class="cifar">CIFAR</a>
+      <a href="ImageNet" class="inet">ImageNet</a>
+      <a href="Audio_Samples" class="audio">Audio Samples</a>
     </div>
   </div> 
-  <a href="Leaderboard"><b>Leaderboard</b></a>
+  <a href="Leaderboard" class="Leaderboard"><b>Leaderboard</b></a>
   <a href="Contact" class="Contact"><b>Contact</b></a>
 </div>
 </div>
 
-
-
-
-<div style="text-align: center;">
-  <div style="display: inline-block; text-align: left;">
-<i>
-
-</i>
-
-<h4>Contact Us Here</h4>
-<p>If you wish to contribute to ARBEN, or have any questions, fill out the form below and we will get back to you shortly.<br> Here are some reasons for contacting us: </p>
-<li>To submit a request to upload your own models and test their robustness (and score high in the leaderboard!)</li>
-<li>To submit additonal datasets and/or adversarial examples</li>
-<li>To help build the website and expand the functionality of the ARBEN tool</li>
-<li>If you have any other general questions</li>
-<br>
-
-<div class="container">
-  <form action="/Confirmation" method = "POST">
-    <label for="fname">Full Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
-    <label for="email">Email</label>
-    <input type="text" id="email" name="emailadd" placeholder="Your email address..">
-
-    <label for="message">Message</label>
-    <textarea id="msg" name="msg" placeholder="Write something.." style="height:200px"></textarea>
-
-    <input type="submit" value="Submit">
-  </form>
-</div>
-
-
-<script>
-window.onscroll = function() {myFunction()};
-
-var navbar = document.getElementById("menu");
-
-var sticky = navbar.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
-}
-
-</script>
+<div><p style="margin-left: 40px"><br><br>
+  <font size="+1">
+  TBD
+  </font>
+  <br><br>
+  
+  </p></div>
 
 </body>
 </html>
